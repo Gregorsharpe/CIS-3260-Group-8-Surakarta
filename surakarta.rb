@@ -436,7 +436,7 @@ class Loop_Space < Space
 	end
 end
 
-#/usr/bin/ruby
+
 
 class Game
 
@@ -463,8 +463,7 @@ class Game
 		#@startPosition.each do |x|
 		#   @current_view << Space.new(count % 6, count/6, x)
 		#    count = count + 1
-
-
+   
 		begin #start with player 1
 
 			#decide what the player wants to do
@@ -488,8 +487,8 @@ class Game
 							next
 						end
 							remove_piece()
-							end_round
-
+							end_round()
+						
 						break
 					when 3
 						player_turn.forfeit()
@@ -501,28 +500,29 @@ class Game
 						print "please select a valid move"
 
 				end
-			end while end_round!= true
-    end
+	  end while true
+  
 
 
 
 			#check if player has not lost
 			if is_game_over() == true
-
+			
 			  end_round();
 			end
-
+			
 			change_turn()
 
-		end while  true #add condition
+		end while end_round()!=  true #add condition
+end 
 
 	def is_game_over
-
+		
 
 			return false
-
+	
 	end
-
+	
 	def remove_piece()
 		if player_turn == p1
 			@player_pieces[1] = @player_pieces[1] -1  #player 2 lost a piece
@@ -530,30 +530,31 @@ class Game
 			@player_pieces[0] = @player_pieces[0]-1 #player 1 lost a piece
 	  end
 	end
-
+	
 	def end_round(signal)
 	 @bypass = signal
 	 if bypass == TRUE
-		return
+	    return 
 	 end
-
+	 
 	 return player_pieces[0] > 0 && player_pieces[1] >0
-
+	
 	end
-
-    def Change_turn()
-	  if @player_turn == p1
-			@player_turn = p2
-		else
-			@player_turn =p1
-		end
-    end
+	
+  def Change_turn()
+  	  if @player_turn == p1
+  			@player_turn = p2
+  		else
+  			@player_turn =p1
+  		end
+  end
 
 end
+print "hiT"
 
-p1 = Player.new(1, "Gerg")
-p2 = Player.new(2, "Gerg")
+#p1 = Player.new(1, "Gerg")
+#p2 = Player.new(2, "Gerg")
 
-testGame = Game.new(1, 1, p1, p2)
+#testGame = Game.new(1, 1, p1, p2)
 
-testGame.round()
+#testGame.round()

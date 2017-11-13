@@ -1,8 +1,5 @@
 #/usr/bin/ruby
 
-
-
-
 class Space
 
 	# constructor
@@ -44,7 +41,7 @@ class Player
 
     # the player ends the game.
     def quit()
-
+        exit
     end
 
     # a player request for a surrender.
@@ -168,8 +165,6 @@ class View
         print "+-----------+  +-----------+\n"
     end
 end
-
-
 
 #testview = View.new()
 #testview.display_board()

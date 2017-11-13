@@ -160,8 +160,8 @@ end
 
 
 
-testview = View.new()
-testview.display_board()
+#testview = View.new()
+#testview.display_board()
 
 class Board
 

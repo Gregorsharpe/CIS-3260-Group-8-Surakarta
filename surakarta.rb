@@ -8,6 +8,10 @@ class Space
       @owner = player_id
    	end
 
+    def owner
+      @owner
+    end
+
    	# changes its player_id to the enumerated value specified.
    	def change_ownership(new_id)
     	@owner = new_id
@@ -124,8 +128,8 @@ class View
     end
 
     # Uses Board's get_spaces() to update @Current_view
-    def update_spaces()
-
+    def update_spaces(source_board)
+        current_view
     end
 
     # Display state of the board.
@@ -133,25 +137,27 @@ class View
         print "+-----------+  +-----------+\n"
         print "|  +-----+  |  |  +-----+  |\n"
         print "|  |     |  |  |  |     |  |\n"
-        print "|  |  #{@current_view[0]}--#{@current_view[1]}--#{@current_view[2]}--#{@current_view[3]}--#{@current_view[4]}--#{@current_view[5]}  |  |\n"
+        print "|  |  #{@current_view[0].owner}--#{@current_view[1].owner}--#{@current_view[2].owner}--#{@current_view[3].owner}--#{@current_view[4].owner}--#{@current_view[5].owner}  |  |\n"
         print "|  |  |  |  |  |  |  |  |  |\n"
-        print "|  +--#{@current_view[6]}--#{@current_view[7]}--#{@current_view[8]}--#{@current_view[9]}--#{@current_view[10]}--#{@current_view[11]}--+  |\n"
+        print "|  +--#{@current_view[6].owner}--#{@current_view[7].owner}--#{@current_view[8].owner}--#{@current_view[9].owner}--#{@current_view[10].owner}--#{@current_view[11].owner}--+  |\n"
         print "|     |  |  |  |  |  |     |\n"
-        print "+-----#{@current_view[12]}--#{@current_view[13]}--#{@current_view[14]}--#{@current_view[15]}--#{@current_view[16]}--#{@current_view[17]}-----+\n"
+        print "+-----#{@current_view[12].owner}--#{@current_view[13].owner}--#{@current_view[14].owner}--#{@current_view[15].owner}--#{@current_view[16].owner}--#{@current_view[17].owner}-----+\n"
         print "      |  |  |  |  |  |\n"
-        print "+-----#{@current_view[18]}--#{@current_view[19]}--#{@current_view[20]}--#{@current_view[21]}--#{@current_view[22]}--#{@current_view[23]}-----+\n"
+        print "+-----#{@current_view[18].owner}--#{@current_view[19].owner}--#{@current_view[20].owner}--#{@current_view[21].owner}--#{@current_view[22].owner}--#{@current_view[23].owner}-----+\n"
         print "|     |  |  |  |  |  |     |\n"
-        print "|  +--#{@current_view[24]}--#{@current_view[25]}--#{@current_view[26]}--#{@current_view[27]}--#{@current_view[28]}--#{@current_view[29]}--+  |\n"
+        print "|  +--#{@current_view[24].owner}--#{@current_view[25].owner}--#{@current_view[26].owner}--#{@current_view[27].owner}--#{@current_view[28].owner}--#{@current_view[29].owner}--+  |\n"
         print "|  |  |  |  |  |  |  |  |  |\n"
-        print "|  |  #{@current_view[30]}--#{@current_view[31]}--#{@current_view[32]}--#{@current_view[33]}--#{@current_view[34]}--#{@current_view[35]}  |  |\n"
+        print "|  |  #{@current_view[30].owner}--#{@current_view[31].owner}--#{@current_view[32].owner}--#{@current_view[33].owner}--#{@current_view[34].owner}--#{@current_view[35].owner}  |  |\n"
         print "|  |     |  |  |  |     |  |\n"
         print "|  +-----+  |  |  +-----+  |\n"
         print "+-----------+  +-----------+\n"
     end
 end
 
-#testview = View.new()
-#testview.display_board()
+
+
+testview = View.new()
+testview.display_board()
 
 class Board
 
@@ -212,7 +218,7 @@ class Board
 		#return Space
 	end
 
-	def get_Spaces()
+	def get_spaces()
 		#Returns information regarding every space on the board. Loop entrances inside the board, will become their space equivalents.
 		all_spaces = new.Array.new(36)
 		all_spaces = @spaces + @loop_entrances

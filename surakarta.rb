@@ -124,9 +124,16 @@ class Player
 end
 
 class View
-    def initialize()
-  		    @current_view = Array.new(36)
+  def initialize()
+      @current_view = []
+      @startPosition = [:player1, :player1, :player1, :player1, :player1, :player1, :player1, :player1, :player1, :player1, :player1, :player1, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :neither, :player2, :player2, :player2, :player2, :player2, :player2, :player2, :player2, :player2, :player2, :player2, :player2]
+      count = 0
+      @startPosition.each do |x|
+        @current_view << Space.new(count % 6, count/6, x)
+        count = count + 1
+      end
     end
+    
 
     # Uses Board's get_spaces() to update @Current_view
     def update_spaces(source_board)
@@ -453,7 +460,7 @@ class Game
 
 
 	def round()
-		$game_board = Board.new()
+	#	$game_board = Board.new()
 
 
 		#initialize the board
@@ -469,32 +476,37 @@ class Game
 			#decide what the player wants to do
 			begin
 				print "choose an option"
-				print "1. Move
+				print "
+				     1. Move
 					   2. Capture
 					   3. Forfiet
-					   4. Quit  "
+					   4. Quit  
+					   5 (tester) View board"
 
 				@choice = gets.chomp
 
 				case @choice
-					when 1
-						if player_turn.select_move(game_board) == false
+					when "1"
+						if @player_turn.select_move(game_board) == false
 							next
 						end
 						break
-					when 2
-						if player_turn.select_capture() == false
+					when "2"
+						if @player_turn.select_capture() == false
 							next
 						end
 							remove_piece()
 							end_round()
 						
 						break
-					when 3
-						player_turn.forfeit()
+					when "3"
+						@player_turn.forfeit()
 						break
-					when 4
+					when "4"
 						player.quit()
+						break
+					when "5"
+				    	
 						break
 					else
 						print "please select a valid move"
@@ -513,7 +525,7 @@ class Game
 			
 			change_turn()
 
-		end while end_round()!=  true #add condition
+		end while end_round(false)!=  true #add condition
 end 
 
 	def is_game_over
@@ -524,7 +536,7 @@ end
 	end
 	
 	def remove_piece()
-		if player_turn == p1
+		if @player_turn == p1
 			@player_pieces[1] = @player_pieces[1] -1  #player 2 lost a piece
 		else
 			@player_pieces[0] = @player_pieces[0]-1 #player 1 lost a piece
@@ -533,28 +545,30 @@ end
 	
 	def end_round(signal)
 	 @bypass = signal
-	 if bypass == TRUE
+	 if @bypass == TRUE
 	    return 
 	 end
 	 
-	 return player_pieces[0] > 0 && player_pieces[1] >0
+	 return @player_pieces[0] > 0 && @player_pieces[1] >0
 	
 	end
 	
-  def Change_turn()
-  	  if @player_turn == p1
-  			@player_turn = p2
+  def change_turn()
+  	  if @player_turn == @p1
+  			@player_turn = @p2
   		else
-  			@player_turn =p1
+  			@player_turn =@p1
   		end
   end
 
 end
-print "hiT"
 
-#p1 = Player.new(1, "Gerg")
-#p2 = Player.new(2, "Gerg")
 
-#testGame = Game.new(1, 1, p1, p2)
+p1 = Player.new(1, "Gerg")
+p2 = Player.new(2, "Gerg")
 
-#testGame.round()
+testGame = Game.new(1, 1, p1, p2)
+
+testGame.round()
+testview = View.new()
+testview.display_board()

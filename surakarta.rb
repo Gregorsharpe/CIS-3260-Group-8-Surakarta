@@ -157,16 +157,74 @@ class Board
 
 	#constructor
 	def initialize()
-		@spaces = Array.new(28)
-		@loop_entrances = Array.new(8)
+		@spaces = Array.new(20)
+		@loop_entrances = Array.new(16)	
+
+		for i in 0..5
+			for j in 0..5
+				if i < 2
+					id = 1
+				else
+					if i < 4
+						id = 0
+					else
+						id = 2
+					end
+				end 
+				
+
+				if i = 0 && j > 0 && j < 5 
+					s = Loop_Space.new(i,j,id)
+					@loop_entrances << s
+				else
+					if j = 0 && i > 0 && i < 5
+						s = Loop_Space.new(i,j,id)
+						@loop_entrances << s
+					else
+						if i = 5 && j > 0 && j < 5
+							s = Loop_Space.new(i,j,id)
+							@loop_entrances << s
+						else
+							if j = 5 && i > 0 && i < 5
+								s = Loop_Space.new(i,j,id)
+								@loop_entrances << s
+							else
+								s = Space.new(i,j,id)
+								@spaces << s
+							end
+						end
+					end
+				end 
+			end
+		end	
+
+		@loop_entrances[0].set_next_Loop_Space(@loop_entrances[4])
+		@loop_entrances[1].set_next_Loop_Space(@loop_entrances[6])
+		@loop_entrances[2].set_next_Loop_Space(@loop_entrances[7])
+		@loop_entrances[3].set_next_Loop_Space(@loop_entrances[5])
+		@loop_entrances[4].set_next_Loop_Space(@loop_entrances[0])
+		@loop_entrances[5].set_next_Loop_Space(@loop_entrances[3])
+		@loop_entrances[6].set_next_Loop_Space(@loop_entrances[1])
+		@loop_entrances[7].set_next_Loop_Space(@loop_entrances[2])
+		@loop_entrances[8].set_next_Loop_Space(@loop_entrances[13])
+		@loop_entrances[9].set_next_Loop_Space(@loop_entrances[14])
+		@loop_entrances[10].set_next_Loop_Space(@loop_entrances[12])
+		@loop_entrances[11].set_next_Loop_Space(@loop_entrances[15])
+		@loop_entrances[12].set_next_Loop_Space(@loop_entrances[10])
+		@loop_entrances[13].set_next_Loop_Space(@loop_entrances[8])
+		@loop_entrances[14].set_next_Loop_Space(@loop_entrances[9])
+		@loop_entrances[15].set_next_Loop_Space(@loop_entrances[11])
 		
 	end
 
 	def check_Capture(src, entr) 
-		#Description: The board evaluates validity of a capture based on the Space src, and the Loop space entrance. Returns the captured space upon success and nil on failure.  
+		#Description: The board evaluates validity of a capture based on the Space src, and the Loop space entrance. 
+		#Returns the captured space upon success and nil on failure.  
 		#check_Capture() checks the spaces in between the start Space and the loop entrance Loop_Space. 
 		#If there are pieces in between, returns nil. 
-		#check_Capture() then jumps to the Loop_Space connected to the entrance Loop_Space and gets the direction to continue checking all of the spaces belonging to that particular loop, changing the direction of the check, if it needs to check through another Loop_Space. 
+		#check_Capture() then jumps to the Loop_Space connected to the entrance Loop_Space and gets the direction to continue 
+		#checking all of the spaces belonging to that particular loop, changing the direction of the check, if it needs to check
+		#through another Loop_Space. 
 		#If no piece is encountered and check returns to its start Space, it is not a valid capture, check_Capture() returns nil.  
 		#If player's own piece in encountered, not a valid capture, check_Capture() returns nil. 
 		#If an opposing piece is encountered, capture was successful, check_Capture() returns coordinates of space being captured. 
@@ -207,14 +265,24 @@ class Board
 	end
 
 	def find_space(x, y)
-		#Description: The Board will search through its list of Spaces and Loop_Spaces looking for a space with the coordinates given by the parameters. If it finds a space in this process, returns that space, otherwise returns nil. 
+		all_spaces = Array.new(36) 
+		all_spaces = @spaces + @loop_entrances
+
+		for i in 0..35
+			x1 = all_spaces[i].get_coordinates[0]
+			y1 = all_spaces[i].get_coordinates[1]
+
+			if x1 == x && y1 == y
+				return all_spaces[i]
+			end
+		end
 		
-		#return Space
+		return nil
 	end
 
 	def get_Spaces()
 		#Returns information regarding every space on the board. Loop entrances inside the board, will become their space equivalents. 
-		all_spaces = new.Array.new(36) 
+		all_spaces = Array.new(36) 
 		all_spaces = @spaces + @loop_entrances
 		return  all_spaces
 	end

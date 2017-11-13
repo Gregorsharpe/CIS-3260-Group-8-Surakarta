@@ -501,7 +501,7 @@ class Game
 						print "please select a valid move"
 
 				end
-			end while true
+			end while end_round!= true
 
 
 
@@ -509,26 +509,26 @@ class Game
 			#check if player has not lost
 			if is_game_over() == true
 			
-			end_round();
+			  end_round();
 			end
 			
 			change_turn()
 
-		end while  && #add condition
+		end while  true #add condition
 
 	def is_game_over
-		if @score_limit || @round_limit
-			
-			
+		
+
+			return false
 	
 	end
 	
 	def remove_piece()
 		if player_turn == p1
-			@player_pieces[1]-- #player 2 lost a piece
+			@player_pieces[1] = @player_pieces[1] -1  #player 2 lost a piece
 		else
-			@player_pieces[0]-- #player 1 lost a piece
-	
+			@player_pieces[0] = @player_pieces[0]-1 #player 1 lost a piece
+	  end
 	end
 	
 	def end_round(signal)

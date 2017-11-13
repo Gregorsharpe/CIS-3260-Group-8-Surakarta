@@ -128,12 +128,23 @@ end
 
 class View
     def initialize()
-  		    @current_view = ['1','1','1','1','1','1','1','1','1','1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','2','2','2','2','2','2','2','2','2','2','2','2']
+  		    @current_view = Array.new(36)
     end
 
     # Uses Board's get_spaces() to update @Current_view
     def update_spaces(source_board)
-        current_view
+        current_view = source_board.get_spaces()
+    end
+
+    # Converts symbols to integer representations for the purpose of printing them.
+    def symbol_to_integer(symbol_in)
+        if symbol_in == :player1 then
+            return 1
+        elsif symbol_in == :player2 then
+            return 2
+        elsif symbol_in == :neither then
+            return 0
+        end
     end
 
     # Display state of the board.
@@ -141,17 +152,17 @@ class View
         print "+-----------+  +-----------+\n"
         print "|  +-----+  |  |  +-----+  |\n"
         print "|  |     |  |  |  |     |  |\n"
-        print "|  |  #{@current_view[0].owner}--#{@current_view[1].owner}--#{@current_view[2].owner}--#{@current_view[3].owner}--#{@current_view[4].owner}--#{@current_view[5].owner}  |  |\n"
+        print "|  |  #{symbol_to_integer(@current_view[0].owner)}--#{symbol_to_integer(@current_view[1].owner)}--#{symbol_to_integer(@current_view[2].owner)}--#{symbol_to_integer(@current_view[3].owner)}--#{symbol_to_integer(@current_view[4].owner)}--#{symbol_to_integer(@current_view[5].owner)}  |  |\n"
         print "|  |  |  |  |  |  |  |  |  |\n"
-        print "|  +--#{@current_view[6].owner}--#{@current_view[7].owner}--#{@current_view[8].owner}--#{@current_view[9].owner}--#{@current_view[10].owner}--#{@current_view[11].owner}--+  |\n"
+        print "|  +--#{symbol_to_integer(@current_view[6].owner)}--#{symbol_to_integer(@current_view[7].owner)}--#{symbol_to_integer(@current_view[8].owner)}--#{symbol_to_integer(@current_view[9].owner)}--#{symbol_to_integer(@current_view[10].owner)}--#{symbol_to_integer(@current_view[11].owner)}--+  |\n"
         print "|     |  |  |  |  |  |     |\n"
-        print "+-----#{@current_view[12].owner}--#{@current_view[13].owner}--#{@current_view[14].owner}--#{@current_view[15].owner}--#{@current_view[16].owner}--#{@current_view[17].owner}-----+\n"
+        print "+-----#{symbol_to_integer(@current_view[12].owner)}--#{symbol_to_integer(@current_view[13].owner)}--#{symbol_to_integer(@current_view[14].owner)}--#{symbol_to_integer(@current_view[15].owner)}--#{symbol_to_integer(@current_view[16].owner)}--#{symbol_to_integer(@current_view[17].owner)}-----+\n"
         print "      |  |  |  |  |  |\n"
-        print "+-----#{@current_view[18].owner}--#{@current_view[19].owner}--#{@current_view[20].owner}--#{@current_view[21].owner}--#{@current_view[22].owner}--#{@current_view[23].owner}-----+\n"
+        print "+-----#{symbol_to_integer(@current_view[18].owner)}--#{symbol_to_integer(@current_view[19].owner)}--#{symbol_to_integer(@current_view[20].owner)}--#{symbol_to_integer(@current_view[21].owner)}--#{symbol_to_integer(@current_view[22].owner)}--#{symbol_to_integer(@current_view[23].owner)}-----+\n"
         print "|     |  |  |  |  |  |     |\n"
-        print "|  +--#{@current_view[24].owner}--#{@current_view[25].owner}--#{@current_view[26].owner}--#{@current_view[27].owner}--#{@current_view[28].owner}--#{@current_view[29].owner}--+  |\n"
+        print "|  +--#{symbol_to_integer(@current_view[24].owner)}--#{symbol_to_integer(@current_view[25].owner)}--#{symbol_to_integer(@current_view[26].owner)}--#{symbol_to_integer(@current_view[27].owner)}--#{symbol_to_integer(@current_view[28].owner)}--#{symbol_to_integer(@current_view[29].owner)}--+  |\n"
         print "|  |  |  |  |  |  |  |  |  |\n"
-        print "|  |  #{@current_view[30].owner}--#{@current_view[31].owner}--#{@current_view[32].owner}--#{@current_view[33].owner}--#{@current_view[34].owner}--#{@current_view[35].owner}  |  |\n"
+        print "|  |  #{symbol_to_integer(@current_view[30].owner)}--#{symbol_to_integer(@current_view[31].owner)}--#{symbol_to_integer(@current_view[32].owner)}--#{symbol_to_integer(@current_view[33].owner)}--#{symbol_to_integer(@current_view[34].owner)}--#{symbol_to_integer(@current_view[35].owner)}  |  |\n"
         print "|  |     |  |  |  |     |  |\n"
         print "|  +-----+  |  |  +-----+  |\n"
         print "+-----------+  +-----------+\n"

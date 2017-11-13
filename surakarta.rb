@@ -448,6 +448,7 @@ class Game
 	  @player2 = p2
 	  @current_round=1
 	  @player_turn = p1
+	  @player_pieces = [12,12]
    	end
 
 
@@ -456,13 +457,13 @@ class Game
 
 
 		#initialize the board
-		@current_view = []
-		@startPosition = [1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2]
-		count = 0
-		@startPosition.each do |x|
-		    @current_view << Space.new(count % 6, count/6, x)
-		    count = count + 1
-    end
+		#@current_view = []
+		#@startPosition = [1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2]
+		#count = 0
+		#@startPosition.each do |x|
+		#   @current_view << Space.new(count % 6, count/6, x)
+		#    count = count + 1
+    
 
 		begin #start with player 1
 
@@ -478,10 +479,17 @@ class Game
 
 				case @choice
 					when 1
-						player_turn.select_move(game_board)
+						if player_turn.select_move(game_board) == false
+							next
+						end
 						break
 					when 2
-						player_turn.select_capture()
+						if player_turn.select_capture() == false
+							next
+						end
+							remove_piece()
+							end_round
+						
 						break
 					when 3
 						player_turn.forfeit()
@@ -499,22 +507,47 @@ class Game
 
 
 			#check if player has not lost
-
-
-
+			if is_game_over() == true
+			
+			end_round();
+			end
+			
 			change_turn()
 
-		end while #add condition
+		end while  && #add condition
 
-
-
-def Change_turn()
+	def is_game_over
+		if @score_limit || @round_limit
+			
+			
+	
+	end
+	
+	def remove_piece()
+		if player_turn == p1
+			@player_pieces[1]-- #player 2 lost a piece
+		else
+			@player_pieces[0]-- #player 1 lost a piece
+	
+	end
+	
+	def end_round(signal)
+	 @bypass = signal
+	 if bypass == TRUE
+		return 
+	 end
+	 
+	 return player_pieces[0] > 0 && player_pieces[1] >0
+	
+	end
+	
+    def Change_turn()
 	  if @player_turn == p1
 			@player_turn = p2
 		else
 			@player_turn =p1
 		end
-  end
+    end
 
 end
 
